@@ -2,8 +2,8 @@
 
 Each run re-downloads the whole current Paris day from ``eco2mix-national-tr``
 (96 slots, ~90 KB) into a new snapshot file
-``<energy_output_dir>/eco2mix-national-tr/YYYY-MM-DD/YYYY-MM-DDTHH-MM-SS.json``
-(folder = data day, file name = run time in Paris), so runs never overwrite each other.
+``<energy_output_dir>/eco2mix-national-tr/YYYY-MM-DD_YYYY-MM-DDTHH-MM-SS.json``
+(data day, then run time in Paris), so runs never overwrite each other.
 Measured values lag ~30-45 min, so for the first ``LOOKBACK`` after midnight the
 run also snapshots yesterday to capture its last slots.
 Each file is mirrored to ``/Volumes/energy/energy/energy_volume/eco2mix-national-tr/``.

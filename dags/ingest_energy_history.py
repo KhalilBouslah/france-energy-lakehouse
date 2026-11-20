@@ -2,10 +2,13 @@
 
 * ``download_definitive_history``: ``eco2mix-national-cons-def`` (definitive data
   2012-2025 + consolidated current year), one file per year in
-  ``<energy_output_dir>/eco2mix-national-cons-def/YYYY.json``. ~15 calls, ~5 min, ~400 MB.
+  ``<energy_output_dir>/eco2mix-national-tr/YYYY.json``. ~15 calls, ~5 min, ~400 MB.
+  The files go to the real-time folder on purpose: it is the folder the Databricks
+  notebook ingests.
 * ``download_realtime_window``: every day still kept in ``eco2mix-national-tr``
-  (current + previous two months), one file per day, same layout as
-  ``ingest_energy_current`` so it fills the gap up to today.
+  (current + previous two months), one file per day in
+  ``<energy_output_dir>/eco2mix-national-tr/YYYY-MM-DD.json``, the same folder as
+  ``ingest_energy_current``, so it fills the gap up to today.
 
 RTE appends consolidated months to cons-def over time, so the two datasets
 overlap; prefer cons-def where both have a slot.

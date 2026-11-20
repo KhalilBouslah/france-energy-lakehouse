@@ -120,14 +120,17 @@ def realtime_day_path(day: date | str) -> Path:
 
 
 def realtime_snapshot_path(day: date, captured_at: datetime) -> Path:
-    """One file per run: ``<day>/<capture time>.json`` so 15-min refreshes never overwrite each other.
+    """One file per data day and run: ``<day>_<capture time>.json``.
 
-    The folder is the data day; the file name is the Paris capture time (a refresh
-    of yesterday just after midnight carries today's date). Colons are replaced by
-    ``-`` because Spark/Hadoop reject ``:`` in file names.
+    The data day is part of the name so the two snapshots taken by one run just
+    after midnight (yesterday and today, same capture time) don't overwrite each
+    other, and successive 15-min refreshes never overwrite each other either.
+    Files stay flat in one folder because the notebook's batch backfill does not
+    read subfolders. Colons are replaced by ``-`` because Spark/Hadoop reject
+    ``:`` in file names.
     """
     stamp = captured_at.astimezone(LOCAL_TZ).strftime("%Y-%m-%dT%H-%M-%S")
-    return output_dir() / REALTIME_DATASET / f"{stamp}.json"
+    return output_dir() / REALTIME_DATASET / f"{day.isoformat()}_{stamp}.json"
 
 
 def ingest_realtime_day(day: date, captured_at: datetime | None = None) -> str:
