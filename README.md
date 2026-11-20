@@ -5,9 +5,6 @@ New data is collected every 15 minutes, landed as raw files, ingested incrementa
 
 ![Live page of the dashboard: consumption now, CO2 intensity, 7-day production mix, consumption vs forecasts](docs/dashboard_live.png)
 
-<!-- Optional: link your 2-minute demo -->
-**Demo:** [2-minute walkthrough](LINK_TO_LOOM)
-
 ---
 
 ## The problem this solves
@@ -238,8 +235,7 @@ GROUP BY nature;
 - [ ] Load the full 2012-today history into the table
 - [ ] Data quality checks (duplicate keys, 15-minute gaps in UTC, negative values) with a quarantine table
 - [ ] pytest for the upsert rule + GitHub Actions
-- [ ] Gold tables (daily mix, forecast error, exchanges) instead of dashboard queries
-- [ ] Cost & quality report from Databricks system tables (before/after the incremental rewrite)
+- [x] Gold tables (daily mix, forecast error, exchanges) instead of dashboard queries
 - [ ] Rename the table to `energy.silver.eco2mix` and add a raw Bronze table
 
 ---
@@ -254,4 +250,4 @@ See each dataset's page for its licence terms. This project is not affiliated wi
 
 ## Author
 
-**YOUR NAME** · Data engineer · [LinkedIn](LINK) · Open to Databricks and data platform work.
+**Khalil Bouslah** · Data engineer · Open to Databricks and data platform work.
