@@ -90,7 +90,7 @@ update_condition = """
 - **Forecast rows are handled explicitly.** Future slots arrive with only `prevision_j` / `prevision_j1` filled. The tie-break and the `NULL` guard stop them from overwriting real values.
 - **Incremental, not full reload.** The first version reprocessed every file on each run. Auto Loader with a checkpoint reads only new files, so cost no longer grows with the history.
 - **Collect every 15 minutes, process hourly.** This stays well within the ODRÉ API quota (50,000 calls per month) and the Free Edition compute quota.
-- **Secrets stay out of the code.** The Databricks token lives in an Airflow connection.
+- **Secrets stay out of the code.** The DAGs authenticate with the Databricks SDK's default credential chain (`DATABRICKS_HOST` / `DATABRICKS_TOKEN` environment variables, else a `~/.databrickscfg` profile), so no token is stored in the repository.
 
 ---
 
@@ -158,7 +158,7 @@ update_condition = """
    CREATE SCHEMA  IF NOT EXISTS energy.energy;
    CREATE VOLUME  IF NOT EXISTS energy.energy.energy_volume;
    ```
-2. **Configure Airflow:** create a connection holding your Databricks host and a personal access token. Never commit the token.
+2. **Configure Databricks access for Airflow:** on the Airflow workers, either set the `DATABRICKS_HOST` and `DATABRICKS_TOKEN` environment variables, or create a profile in `~/.databrickscfg` and set the Airflow Variable `databricks_profile` to its name. Optionally set the Airflow Variable `energy_output_dir` to change where files are written locally. Never commit the token.
 3. **Load the history:** trigger the history DAG once.
 4. **Start the real-time DAG:** it runs every 15 minutes.
 5. **Deploy the ingestion script** (`databricks/fr_energy_ingestion.py`) as a Databricks job scheduled hourly, with a failure email.

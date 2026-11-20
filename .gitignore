@@ -1,0 +1,29 @@
+# Secrets and credentials
+.env
+.env.*
+!.env.example
+.databrickscfg
+*.pem
+*.key
+
+# Data written by the DAGs (output_dir() default)
+output/
+*.tmp
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Airflow local files
+logs/
+airflow.db
+airflow.cfg
+webserver_config.py
+
+# Notebooks / editors / OS
+.ipynb_checkpoints/
+.idea/
+.vscode/
+.DS_Store
